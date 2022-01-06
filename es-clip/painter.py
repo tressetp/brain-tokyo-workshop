@@ -20,7 +20,7 @@ class TrianglesPainter(object):
         
         print("painter initiated")
         
-    def draw_pattern(self, drawer,pattern_,scale_=[1.0,1.0], translate_=[0,0],rotation_=0, ink=1,fill=(0,0,0,255)):
+    def draw_pattern(self, drawer,pattern_,scale_=[1.0,1.0], translate_=[0,0],rotation_=0, ink=1,fill=(255,255,255,128)):
         pattern = scale(pattern_, scale_[0], scale_[1], 1.0)
         pattern = rotate(pattern,rotation_)
         pattern = translate(pattern,translate_[0],translate_[1])
@@ -37,7 +37,7 @@ class TrianglesPainter(object):
     def random_params(self):
         return np.random.rand(self.n_params)
     
-    def render(self, params, background='noise'):
+    def render(self, params, background='black'):
        # print('render')
        
         pattern = MultiLineString(self.pattern)
