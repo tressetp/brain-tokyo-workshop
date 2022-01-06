@@ -117,7 +117,7 @@ def batch_fitness_fn_by_worker(solutions):
     NUM_AUGS = 4
 
     n_solutions = len(solutions)
-    arrs = [painter.render(solution, 'white') for solution in solutions]
+    arrs = [painter.render(solution, 'black') for solution in solutions]
 
     t = np.stack(arrs, axis=0).transpose(0, 3, 1, 2)
     t = torch.tensor(t).to(device)
