@@ -1,6 +1,6 @@
-# Brain Tokyo Workshop 🧠🗼
+# Fork of Brain Tokyo Workshop 🧠🗼
 
-This repo contains research materials released by members of the Google Brain team in Tokyo.
+This repo contains a copy of research materials released by members of the Google Brain team in Tokyo.
 
 ## Past Projects ##
 
