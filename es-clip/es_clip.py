@@ -167,7 +167,7 @@ def training_loop(args):
         popsize=args.n_population,
         optimizer='clipup',
         optimizer_config={'max_speed': 0.15},
-        center_init = np.random.rand(6000000) ,
+        center_init = np.random.rand(600) ,
     )
 
     hooks = [
