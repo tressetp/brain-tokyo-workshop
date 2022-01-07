@@ -3,3 +3,4 @@ regex
 tqdm
 numpy
 Pillow
+aggdraw
