@@ -167,7 +167,7 @@ def training_loop(args):
         popsize=args.n_population,
         optimizer='clipup',
         optimizer_config={'max_speed': 0.15},
-        center_init = np.random.rand(painter.n_params*args.n_triangles) ,
+        center_init = np.random.rand(painter.n_params*args.n_triangle) ,
     )
 
     hooks = [
