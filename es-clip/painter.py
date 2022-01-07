@@ -51,7 +51,7 @@ class TrianglesPainter(object):
     def random_params(self):
         return np.random.rand(self.n_params)
     
-    def render(self, params, background='white'):
+    def render(self, params, background='white', aggdraw=True):
        # print('render')
        
         pattern = MultiLineString(self.pattern)
