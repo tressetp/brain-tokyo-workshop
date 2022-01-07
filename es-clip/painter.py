@@ -14,7 +14,7 @@ class TrianglesPainter(object):
         self.n_triangle = n_triangle
         self.alpha_scale = alpha_scale
         self.coordinate_scale = coordinate_scale
-        self.aggdraw_ = aggdraw
+        self.aggdraw_ = aggdraw_
         lines = []
         for i in range(0,41,8):
             lines.append([[i,0],[i,40]])
