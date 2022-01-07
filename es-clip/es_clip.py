@@ -39,9 +39,9 @@ def parse_cmd_args():
     parser.add_argument('--gpus', nargs='*', type=int, default=[])
     parser.add_argument('--thread_per_clip', type=int, default=1)
     parser.add_argument('--prompt', type=str, required=True)
-    parser.add_argument('--aggdraw', type=str, default=True)
-    parser.add_argument('--random_start', type=str, required=True)
-    parser.add_argument('--save_lines', type=str, required=True)
+    parser.add_argument('--aggdraw', type=bool, default=True)
+    parser.add_argument('--random_start', type=bool, default=True)
+    parser.add_argument('--save_lines', type=bool, default=True)
     
 
     cmd_args = parser.parse_args()
