@@ -8,7 +8,7 @@ import aggdraw
 
 class TrianglesPainter(object):
 
-    def __init__(self, h, w, n_triangle=10, alpha_scale=0.1, coordinate_scale=1.0, aggraw=True):
+    def __init__(self, h, w, n_triangle=10, alpha_scale=0.1, coordinate_scale=1.0, aggdraw=True):
         self.h = h
         self.w = w
         self.n_triangle = n_triangle
