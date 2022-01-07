@@ -159,7 +159,7 @@ def training_loop(args):
         n_triangle=args.n_triangle,
         alpha_scale=args.alpha_scale,
         coordinate_scale=args.coordinate_scale,
-        aggdraw= args.aggdraw
+        aggdraw_= args.aggdraw
     )
 
     solver = PGPE(
@@ -189,7 +189,7 @@ def training_loop(args):
         (
             args.report_interval,
             StoreImageHook(
-                render_fn=lambda params: painter.render(params, background='white', aggdraw=args.aggdraw),
+                render_fn=lambda params: painter.render(params, background='white', aggdraw_=args.aggdraw),
                 save_fp=os.path.join(args.working_dir, 'animate-background=white'),
                 fps=args.fps,
                 save_interval=args.save_as_gif_interval,
@@ -197,7 +197,7 @@ def training_loop(args):
         ),
         (
             args.report_interval,
-            ShowImageHook(render_fn=lambda params: painter.render(params, background='white',aggdraw=args.aggdraw)),
+            ShowImageHook(render_fn=lambda params: painter.render(params, background='white',aggdraw_=args.aggdraw)),
         ),
     ]
 

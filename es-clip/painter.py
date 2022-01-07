@@ -8,13 +8,13 @@ import aggdraw
 
 class TrianglesPainter(object):
 
-    def __init__(self, h, w, n_triangle=10, alpha_scale=0.1, coordinate_scale=1.0, aggdraw=True):
+    def __init__(self, h, w, n_triangle=10, alpha_scale=0.1, coordinate_scale=1.0, aggdraw_=True):
         self.h = h
         self.w = w
         self.n_triangle = n_triangle
         self.alpha_scale = alpha_scale
         self.coordinate_scale = coordinate_scale
-        self.aggdraw = aggdraw
+        self.aggdraw_ = aggdraw
         lines = []
         for i in range(0,41,8):
             lines.append([[i,0],[i,40]])
@@ -51,7 +51,7 @@ class TrianglesPainter(object):
     def random_params(self):
         return np.random.rand(self.n_params)
     
-    def render(self, params, background='white', aggdraw=True):
+    def render(self, params, background='white', aggdraw_=True):
        # print('render')
        
         pattern = MultiLineString(self.pattern)
@@ -76,7 +76,7 @@ class TrianglesPainter(object):
         else:
             assert False
             
-        if not aggdraw:
+        if not aggdraw_:
             drawer = ImageDraw.Draw(img)
         else:
             drawer = aggdraw.Draw(img)
@@ -102,12 +102,12 @@ class TrianglesPainter(object):
             rotation = int((int(rotation*6)/6.0) * 180)
             alpha = int((int(alpha*12)/12.0) * 255)
             fill = (0,0,0,alpha)
-            if not aggdraw:
+            if not aggdraw_:
                 self.draw_pattern(drawer,pattern_=pattern, scale_= scale, translate_=[x,y],rotation_=rotation, fill=fill)
             else:
                 self.draw_pattern_a(drawer,pattern_=pattern, scale_= scale, translate_=[x,y],rotation_=rotation, fill=fill)
         
-        if aggdraw:
+        if aggdraw_:
             drawer.flush()   
         del(drawer)
         #print('end render')
