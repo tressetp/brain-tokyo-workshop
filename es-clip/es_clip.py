@@ -23,6 +23,7 @@ from es import (PrintStepHook, PrintCostHook, SaveCostHook, StoreImageHook, Show
 
 def parse_cmd_args():
     parser = argparse.ArgumentParser()
+    
     parser.add_argument('--out_dir', type=str, default='es_clip_out')
     parser.add_argument('--height', type=int, default=200)
     parser.add_argument('--width', type=int, default=200)
@@ -38,6 +39,10 @@ def parse_cmd_args():
     parser.add_argument('--gpus', nargs='*', type=int, default=[])
     parser.add_argument('--thread_per_clip', type=int, default=1)
     parser.add_argument('--prompt', type=str, required=True)
+    parser.add_argument('--aggdraw', type=str, default=True)
+    parser.add_argument('--random_start', type=str, required=True)
+    parser.add_argument('--save_lines', type=str, required=True)
+    
 
     cmd_args = parser.parse_args()
     return cmd_args
@@ -62,7 +67,9 @@ def parse_args(cmd_args):
     args.gpus = cmd_args.gpus
     args.thread_per_clip = cmd_args.thread_per_clip
     args.prompt = cmd_args.prompt
-
+    args.aggdraw = cmd_args.aggdraw
+    args.random_start = cmd_args.random_start
+    args.save_lines = cmd_args.save_lines
     return args
 
 
@@ -117,7 +124,7 @@ def batch_fitness_fn_by_worker(solutions):
     NUM_AUGS = 4
 
     n_solutions = len(solutions)
-    arrs = [painter.render(solution, 'black') for solution in solutions]
+    arrs = [painter.render(solution, 'white') for solution in solutions]
 
     t = np.stack(arrs, axis=0).transpose(0, 3, 1, 2)
     t = torch.tensor(t).to(device)
@@ -152,6 +159,7 @@ def training_loop(args):
         n_triangle=args.n_triangle,
         alpha_scale=args.alpha_scale,
         coordinate_scale=args.coordinate_scale,
+        aggdraw= args.aggdraw
     )
 
     solver = PGPE(
@@ -159,6 +167,7 @@ def training_loop(args):
         popsize=args.n_population,
         optimizer='clipup',
         optimizer_config={'max_speed': 0.15},
+        center_init = np.random.rand(painter.n_params*args.n_triangles) ,
     )
 
     hooks = [
@@ -180,7 +189,7 @@ def training_loop(args):
         (
             args.report_interval,
             StoreImageHook(
-                render_fn=lambda params: painter.render(params, background='black'),
+                render_fn=lambda params: painter.render(params, background='white', aggdraw=args.aggdraw),
                 save_fp=os.path.join(args.working_dir, 'animate-background=white'),
                 fps=args.fps,
                 save_interval=args.save_as_gif_interval,
@@ -188,7 +197,7 @@ def training_loop(args):
         ),
         (
             args.report_interval,
-            ShowImageHook(render_fn=lambda params: painter.render(params, background='black')),
+            ShowImageHook(render_fn=lambda params: painter.render(params, background='white',aggdraw=args.aggdraw)),
         ),
     ]
 
