@@ -53,7 +53,7 @@ class TrianglesPainter(object):
     def random_params(self):
         return np.random.rand(self.n_params)
     
-    def render(self, params, background='white', aggdraw_=True):
+    def render(self, params, background='white', aggdraw_=True, vision=True):
        # print('render')
        
         pattern = MultiLineString(self.pattern)
@@ -114,7 +114,8 @@ class TrianglesPainter(object):
         del(drawer)
         #print('end render')
         img_arr = np.array(img.convert("RGB"))
-        img_arr = gaussian_filter(img_arr, 7)
-        img_arr = median_filter(img_arr, 5)
-        img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
+        if vision:
+	    img_arr = gaussian_filter(img_arr, 7)
+	    img_arr = median_filter(img_arr, 5)
+	    img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
         return img_arr
