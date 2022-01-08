@@ -4,5 +4,4 @@ tqdm
 numpy
 Pillow
 aggdraw
-skimage
 scipy

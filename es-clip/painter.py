@@ -4,6 +4,8 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 from shapely.geometry import MultiLineString
 from shapely.affinity import rotate, scale, translate
+from scipy.ndimage import median_filter, gaussian_filter
+from skimage import exposure
 import aggdraw
 
 class TrianglesPainter(object):
@@ -70,7 +72,7 @@ class TrianglesPainter(object):
         if background == 'noise':
             img = Image.fromarray(  (np.random.rand( h, w, 3 ) * 255).astype(np.uint8) )
         elif background == 'white':
-            img = Image.new("RGBA", (w, h), (255, 255, 255,255))
+            img = Image.new("RGBA", (w, h), (128, 128, 128,255))
         elif background == 'black':
             img = Image.new("RGB", (w, h), (0, 0, 0))
         else:
@@ -101,7 +103,7 @@ class TrianglesPainter(object):
             scale = (scale_w, scale_h)
             rotation = int((int(rotation*6)/6.0) * 180)
             alpha = int((int(alpha*12)/12.0) * 255)
-            fill = (0,0,0,alpha)
+            fill = (alpha,alpha,alpha,140)
             if not aggdraw_:
                 self.draw_pattern(drawer,pattern_=pattern, scale_= scale, translate_=[x,y],rotation_=rotation, fill=fill)
             else:
@@ -112,4 +114,7 @@ class TrianglesPainter(object):
         del(drawer)
         #print('end render')
         img_arr = np.array(img.convert("RGB"))
+        img_arr = gaussian_filter(img_arr, 7)
+        img_arr = median_filter(img_arr, 5)
+        img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
         return img_arr
