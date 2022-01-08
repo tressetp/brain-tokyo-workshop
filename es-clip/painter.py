@@ -117,5 +117,5 @@ class TrianglesPainter(object):
         if vision==True:
           img_arr = gaussian_filter(img_arr, 7)
           img_arr = median_filter(img_arr, 5)
-          img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
+          #img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
         return img_arr
