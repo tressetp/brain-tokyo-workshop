@@ -114,7 +114,7 @@ class TrianglesPainter(object):
         del(drawer)
         #print('end render')
         img_arr = np.array(img.convert("RGB"))
-        if vision:
+        if vision==True:
 	    img_arr = gaussian_filter(img_arr, 7)
 	    img_arr = median_filter(img_arr, 5)
 	    img_arr = (exposure.equalize_adapthist(img_arr,51)*255).astype(np.uint8)
